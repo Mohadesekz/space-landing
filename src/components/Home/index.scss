@@ -1,0 +1,36 @@
+@import "@/app/mixins";
+
+.home {
+  height: calc(100vh - 60px);
+  // @include tablet() {
+  //   height: 70vh;
+  // }
+
+  button {
+    border: none;
+    &:hover::after,
+    &:hover::before {
+      background: transparent;
+      transition: background-color 200ms linear;
+    }
+  }
+  button:before,
+  button:after {
+    height: 12px;
+    width: 12px;
+    background: black;
+    position: absolute;
+    content: "";
+    transition: background-color 200ms linear;
+  }
+  button:before {
+    top: 0;
+    left: 0;
+    transform: rotate(49deg) translate(-71%);
+  }
+  button:after {
+    bottom: 0;
+    right: 0;
+    transform: rotate(49deg) translate(71%);
+  }
+}
