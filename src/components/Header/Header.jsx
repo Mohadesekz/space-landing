@@ -1,28 +1,39 @@
 "use client"; // This is a client component 👈🏽
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "@/components/NavLink";
-import Logo from "@/images/logo.png";
+import Logo from "./Logo";
 import Image from "next/image";
 import { Link as LinkScroll } from "react-scroll";
+import { motion, useInView, useAnimationControls } from "framer-motion";
 import "./index.scss";
-export default function Header(props) {
-  const [hamOpen, setHamOpen] = useState(false);
 
+export default function Navigations(props) {
+  const controls = useAnimationControls();
+
+  const [hamOpen, setHamOpen] = useState(false);
   const [activeLink, setActiveLink] = useState(null);
   const [scrollActive, setScrollActive] = useState(false);
-
   const [scrollDirection, setScrollDirection] = useState(null);
 
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+
   useEffect(() => {
-    props.setParentActiveLink(activeLink);
-  }, [activeLink]);
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [inView]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollActive(window.scrollY > 20);
     });
   }, []);
+
+  useEffect(() => {
+    props.setParentActiveLink(activeLink);
+  }, [activeLink]);
 
   useEffect(() => {
     let lastScrollY = window.pageYOffset;
@@ -46,17 +57,17 @@ export default function Header(props) {
 
   return (
     <div
-      className={`w-screen items-center flex justify-between header 
-      ${scrollDirection === "down" ? "-top-24" : "top-0"} 
+      className={`w-screen items-center flex justify-between header
+      ${scrollDirection === "down" ? "-top-24" : "top-0"}
       transition-all duration-500`}
     >
       <button
         data-collapse-toggle="navbar-default"
         type="button"
         className="inline-flex items-center
-         w-10 justify-center text-sm 
+         w-10 justify-center text-sm
          text-gray-500 rounded-lg h-7
-         md:hidden hover:bg-gray-100 
+         md:hidden hover:bg-gray-100
          dark:text-gray-400 dark:hover:bg-gray-700
          dark:focus:ring-gray-600 hover:bg-transparent focus:ring-0"
         aria-controls="navbar-default"
@@ -117,7 +128,6 @@ export default function Header(props) {
           smooth="easeInOutQuart"
           duration={1000}
           onClick={() => {
-            console.log("shiiiiiiiiiiit");
             setActiveLink("galleries");
             props.setParentActiveLink("galleries");
           }}
@@ -273,10 +283,7 @@ export default function Header(props) {
           پنجم
         </LinkScroll>
       </div>
-
-      <div className="w-36">
-        <Image width={200} className="fill-white" src={Logo} alt="space logo" />
-      </div>
+      <Logo />
     </div>
   );
 }

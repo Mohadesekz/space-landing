@@ -26,6 +26,11 @@
   font-style: normal;
   src: url("../../public/fonts/yekanFaNumber.woff");
 }
+@font-face {
+  font-family: spacex;
+  font-style: normal;
+  src: url("../../public/fonts/SpaceX.ttf");
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -47,8 +52,8 @@
 }
 
 body {
-  font-family: IranYekanFaNumber !important;
-  /* font-family: danaRegular !important; */
+  /* font-family: IranYekanFaNumber !important; */
+  font-family: danaRegular !important;
 
   max-width: 100vw;
   overflow-x: hidden;
@@ -63,7 +68,7 @@ body {
 .flickering-light {
   opacity: 0;
   animation: burn-out 2s forwards;
-  animation-delay: 250ms;
+  animation-delay: 1000ms;
 }
 .flickering-light-slow {
   opacity: 0;

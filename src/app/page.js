@@ -8,7 +8,7 @@ import History from "@/components/History/History";
 export default function Home() {
   const [activeLink, setActiveLink] = useState(null);
   useEffect(() => {
-    console.log(activeLink);
+    // console.log(activeLink);
   }, [activeLink]);
   return (
     <main
@@ -17,7 +17,7 @@ export default function Home() {
     >
       <Header setParentActiveLink={setActiveLink} />
       <Hero />
-      <About />
+      <About activeLink={activeLink} />
       <Galleris activeLink={activeLink} />
       <History />
     </main>
